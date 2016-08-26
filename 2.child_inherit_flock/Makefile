@@ -14,7 +14,7 @@ DEPS := $(patsubst %.c,%.d,$(SRCS))
 OBJS := $(patsubst %.c,%.o,$(SRCS))
 
 
-TARGET := waitpid_sigchld_ignore
+TARGET := child_inherit_flock
 
 all: $(TARGET)
 
