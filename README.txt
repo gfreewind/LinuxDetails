@@ -1,7 +1,9 @@
+
+# General
 This project is used to investigate on the details of Linux programming.
 Every directory focuses on one topic.
 
-1. waitpid_sigchld_ignore: 
+#1. waitpid_sigchld_ignore: 
 
 When SIGCHLD is ignored, how about waitpid?
 
