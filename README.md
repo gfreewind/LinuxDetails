@@ -3,6 +3,10 @@
 This project is used to investigate on the details of Linux programming.
 Every directory focuses on one topic.
 
+Becasue they are test codes, so I don't perform the delicated error handler. Just exit the process :))
+
+Every directory verifies one problem about Linux programing. You could check the codes and README.md in every dir to get the detail answer.
+
 #1. waitpid_sigchld_ignore: 
 
 ## Question
@@ -33,5 +37,25 @@ Is it really blocked?
 
 ## Answer
 No!
+
+# 2.child_inherit_flock
+
+## Question
+The flock could be released automatically when process exits. How about it when parent holds one flock and forks one child then exit? Is the flock released after parent exits?
+
+## Answer
+No!
+
+# 3.child_share_flock
+
+## Question
+
+The flock is shared between parent and child process. The parent process holds one flock and forks one child process. Now the flock is shared. How about the parent releases the lock and tries to lock it while child is alive ? Is it blocked because child still holds the lock?
+
+## Answer
+
+No !
+
+
 
 
