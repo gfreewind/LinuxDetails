@@ -26,7 +26,6 @@ int main(void)
 	}
 
 	printf("Fork child1 successfully\n");
-	sleep(3);
 	child2 = fork();
 	if (child2 == -1) {
 		printf("Fail to fork child2\n");
@@ -38,6 +37,7 @@ int main(void)
 	}
 
 	printf("Fork child2 successfully, and wait child2\n");
+	sleep(3);
 	waitpid(child2, NULL, 0);
 	printf("Wait child1 now\n");
 	waitpid(child1, NULL, 0);
