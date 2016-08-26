@@ -9,6 +9,8 @@ When SIGCHLD is ignored, how about waitpid?
 
 The following is from "man 2 waitpid"
 /******************************************************************************************************/
+
+
 POSIX.1-2001 specifies that if the disposition of SIGCHLD is set to SIG_IGN or the  SA_NOCLDWAIT  flag
 is  set  for SIGCHLD (see sigaction(2)), then children that terminate do not become zombies and a call
 to wait() or waitpid() will block until all children have terminated, and then fail with errno set  to
@@ -20,6 +22,8 @@ Linux  2.6 conforms to the POSIX requirements.  However, Linux 2.4 (and earlier)
 or waitpid() call is made while SIGCHLD is being ignored, the call behaves just as though SIGCHLD were
 not  being  ignored,  that  is,  the  call blocks until the next child terminates and then returns the
 process ID and status of that child.
+
+
 /******************************************************************************************************/
 
 Is it really blocked?
