@@ -5,6 +5,9 @@ Every directory focuses on one topic.
 
 #1. waitpid_sigchld_ignore: 
 
+## Question
+
+
 When SIGCHLD is ignored, how about waitpid?
 
 The following is from "man 2 waitpid"
@@ -27,3 +30,8 @@ process ID and status of that child.
 /******************************************************************************************************/
 
 Is it really blocked?
+
+## Answer
+No!
+
+
