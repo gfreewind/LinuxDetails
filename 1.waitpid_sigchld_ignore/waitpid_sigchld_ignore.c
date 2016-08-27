@@ -4,6 +4,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <errno.h>
+#include <string.h>
 
 int main(void)
 {
@@ -38,7 +40,11 @@ int main(void)
 
 	printf("Fork child2 successfully, and wait child2\n");
 	sleep(3);
-	waitpid(child2, NULL, 0);
+	pid_t ret = waitpid(child2, NULL, 0);
+	if (ret == -1) {
+		printf("waitpid child2 return -1, errno(%d): %s\n",
+			errno, strerror(errno));
+	}
 	printf("Wait child1 now\n");
 	waitpid(child1, NULL, 0);
 
