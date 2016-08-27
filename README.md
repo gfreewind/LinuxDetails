@@ -1,3 +1,12 @@
+# 简介
+
+这个工程是用于研究Linux环境编程的一些细节。
+其中每个目录聚焦于一个主题。
+
+因为这些是测试代码，所以没有细致的处理错误处理。就直接退出进程了事:))
+
+每一个目录都验证Linux编程的一个问题。要了解细节的话，可以进入具体的目录得到详细的解答。
+
 
 # General
 This project is used to investigate on the details of Linux programming.
@@ -8,6 +17,11 @@ Becasue they are test codes, so I don't perform the delicated error handler. Jus
 Every directory verifies one problem about Linux programing. You could check the codes and README.md in every dir to get the detail answer.
 
 #1. waitpid_sigchld_ignore: 
+
+## 问题
+
+当SIGCHLD被设置为SIG_IGN时，对waitpid有什么影响呢？
+根据"man 2 waitpid"的描述，是否会真的阻塞呢？
 
 ## Question
 
@@ -40,6 +54,11 @@ No!
 
 # 2.waitanypid_sigchld_ignore
 
+## 问题
+
+当使用waitpid等待任意pid时，而不是指定pid，又会怎么样呢？
+与问题1会有什么不同吗？是否也会阻塞呢？
+
 ## Qeustion
 
 How about wait any pid instead of wait specific pid in case2?  Is it different ? Is it block too?
@@ -50,6 +69,10 @@ Yes! This waitpid blocks until all childs exits.
 
 # 3.child_inherit_flock
 
+## 问题
+
+当进程退出时，flock可以被自动释放。那么当父进程持有flock并且fork了一个子进程，然后退出。这个flock锁是否还会在父进程推出时释放吗？
+
 ## Question
 The flock could be released automatically when process exits. How about it when parent holds one flock and forks one child then exit? Is the flock released after parent exits?
 
@@ -57,6 +80,11 @@ The flock could be released automatically when process exits. How about it when 
 No!
 
 # 4.child_share_flock
+
+## 问题
+
+既然flock是由父进程和子进程共享，那么父进程持有flock锁并fork一个子进程，这时flock是共享的。那么这时在子进程未退出的情况下，父进程
+释放了锁，然后再次尝试获取这个flock，会怎么样呢？父进程会因为子进程持有锁而阻塞吗？
 
 ## Question
 
