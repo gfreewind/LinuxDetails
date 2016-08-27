@@ -38,7 +38,17 @@ Is it really blocked?
 ## Answer
 No!
 
-# 2.child_inherit_flock
+# 2.waitanypid_sigchld_ignore
+
+## Qeustion
+
+How about wait any pid instead of wait specific pid in case2?  Is it different ? Is it block too?
+
+## Answer
+Yes! This waitpid blocks until all childs exits.
+
+
+# 3.child_inherit_flock
 
 ## Question
 The flock could be released automatically when process exits. How about it when parent holds one flock and forks one child then exit? Is the flock released after parent exits?
@@ -46,7 +56,7 @@ The flock could be released automatically when process exits. How about it when 
 ## Answer
 No!
 
-# 3.child_share_flock
+# 4.child_share_flock
 
 ## Question
 
