@@ -3,7 +3,7 @@
 这个程序将SIGCHLD设置为SIG_IGN，然后fork两个子进程。第一个子进程会sleep 30秒，
 而第二个子进程会直接退出。
 
-父进程先waitpid第2个进程，然后在waitpid第一个。
+父进程先waitpid第二个进程，然后再waitpid第一个。
 
 # Description
 
@@ -32,7 +32,7 @@ It is oppsite the description of "man 2 waitpid".
 
 # Reason
 
-Becasue when waitpid for child2, we specify the pid. But the SICHLD is ignored,
+Because when waitpid for child2, we specified the pid. But the SICHLD is ignored,
 the exit status of child2 is not saved.
 So the waitpid fail to get the child2's status and returns error, and show the reason "No child processes", then
 return immediately
