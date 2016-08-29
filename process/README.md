@@ -26,5 +26,18 @@ The flock is shared between parent and child process. The parent process holds o
 No !
 
 
+# 3.fork_and_print
+
+## 问题
+
+一个有关print和fork有趣的问题
+
+## Question
+
+One interesting problem about printf and fork.
+
+## Answer
+
+Please check out the codes in 3.fork_and_print :))
 
 
