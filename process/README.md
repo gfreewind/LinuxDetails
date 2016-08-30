@@ -41,3 +41,25 @@ One interesting problem about printf and fork.
 Please check out the codes in 3.fork_and_print :))
 
 
+# 4.fork_with_fd
+
+## 问题
+当父子进程同时往一个文件里写数据是什么样的情况呢？
+情况1:子进程的fd是fork继承下来的；
+情况2:父子进程的fd是fork以后分别打开的;
+这两种情况写入的结果一样的吗？
+
+## Question
+How about the content when both of parent and child process write the same file?
+case1: The child's fd is inherited from parent;
+case2: The fd of parent and child is opened after fork;
+How about these two cases? Is it same?
+
+## Answer
+
+No. It's totally different!!!
+
+
+
+
+
