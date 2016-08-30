@@ -10,10 +10,14 @@ How about the content of these two files?
 # Answer
 
 ./test1.txt:
+
+
 I'm parent
+
 I'm child
 
-./test2.txt:
+./test2.txt
+
 I'm child
 
 Notic: The content may be different in your environment.
