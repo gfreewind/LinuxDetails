@@ -138,6 +138,8 @@ int main(void)
 	Second time:
 	Server close the fd without reading data
 	*/
+	/*we sleep 30 second here so we have time to observe the output of "tcpdump lo" and "ss | grep 6000" */
+	sleep(30);
 	close(client);
 	printf("server: close fd at the second time\n");
 
