@@ -12,7 +12,7 @@ This behaviro is defined in the section 2.17 of RFC 2525.
 
 To reproduce this issue, you may run this test program some times.
 Because the TCP ack is sent by kernel.
-Server codes just tris to close fd before kernel response ack.
+Server codes just try to close fd before kernel response ack.
 When achieve it, the output is following:
 
 server: receive 6 bytes: First

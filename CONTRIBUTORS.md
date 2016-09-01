@@ -1,4 +1,10 @@
-This file contains a list of people who made the contributor.
+This file contains a list of people who made some contribution.
+
+
+# Share the codes and knowledge
+
+
+gfree.wind@gmail.com: The founder and maintainer
 
 
 # Raise the problem
@@ -6,7 +12,13 @@ This file contains a list of people who made the contributor.
 ly(2270597823@qq.com): Close the TCP socket with pending data
 
 
-# Share the codes and analysis
+
+## Note
+
+
+Welcome every to join QQ group 4367710!
+Share your knowledges or raise one problem.
+
 
 
 
