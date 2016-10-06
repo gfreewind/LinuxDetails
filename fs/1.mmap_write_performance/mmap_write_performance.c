@@ -41,9 +41,6 @@ int main(void)
 	ftruncate(fd, 1024);
 	for (i = 0; i < TEST_LOOPS; ++i) {
 		char *addr = mmap(NULL, 1024, PROT_WRITE, MAP_SHARED, fd, 0);
-		if ((void*)-1 == addr) {
-			printf("errno(%d): %s\n", errno, strerror(errno));
-		}
 		memcpy(addr, buf, 1024);
 		munmap(addr, 1024);
 	}
