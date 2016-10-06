@@ -36,7 +36,7 @@ int main(void)
 {
 	int cost, i, fd;
 	time_t start, end;
-	char buf[10240] = {"Hello world!\n"};
+	char buf[20480] = {"Hello world!\n"};
 
 	start = time(NULL);
 	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
