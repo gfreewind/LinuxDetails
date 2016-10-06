@@ -41,8 +41,8 @@ The performance of mmap read is worse than direct read.
 一般情况下，write都会使用cache，本例中禁止了cache，再次比较mmap和write的性能
 
 ## 结论
-
-mmap和write在写1024，2048，4096字节时性能基本一致；但是写入5120时，mmap的性能仍然比write差。
+随着写入字节的增加，mmap消耗的时间也越来越多。
+但是write消耗的时间并没有明显增加。
 
 ## Question
 
@@ -50,8 +50,19 @@ When disable the write cache, how about the performance of mmap write and write?
 
 ## Answer  
 
-When write 1024, 2048, 4096 bytes, they are same.
-When write 5120 bytes, the performance of mmap write is worse than write. 
+The cost increases with bytes increasing when use mmap.
+But the cost of write does not increase.
+
+# 4.mmap_read_sync_nocache
+
+## 问题
+
+同上。本例中禁止了cache，再次比较mmap和read的性能
+
+## 性能 
+随着读入字节的增加，mmap消耗的时间也在增加。
+但是read消耗的时间增加的非常少
+
 
 
 
