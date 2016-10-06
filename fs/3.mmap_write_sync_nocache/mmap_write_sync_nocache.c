@@ -36,36 +36,10 @@ int main(void)
 {
 	int cost, i, fd;
 	time_t start, end;
-	char buf[5120] = {"Hello world!\n"};
+	char buf[10240] = {"Hello world!\n"};
 
 	start = time(NULL);
 	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
-	ftruncate(fd, 1024);
-	for (i = 0; i < TEST_LOOPS; ++i) {
-		char *addr = mmap(NULL, 1024, PROT_WRITE, MAP_SHARED, fd, 0);
-		memcpy(addr, buf, 1024);
-		munmap(addr, 1024);
-	}
-	close(fd);
-	end = time(NULL);
-	cost = end - start;
-	printf("mmap write 1024 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
-
-	start = time(NULL);
-	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC);
-	ftruncate(fd, 2048);
-	for (i = 0; i < TEST_LOOPS; ++i) {
-		char *addr = mmap(NULL, 2048, PROT_WRITE, MAP_SHARED, fd, 0);
-		memcpy(addr, buf, 2048);
-		munmap(addr, 2048);
-	}
-	close(fd);
-	end = time(NULL);
-	cost = end - start;
-	printf("mmap write 2048 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
-
-	start = time(NULL);
-	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC);
 	ftruncate(fd, 4096);
 	for (i = 0; i < TEST_LOOPS; ++i) {
 		char *addr = mmap(NULL, 4096, PROT_WRITE, MAP_SHARED, fd, 0);
@@ -76,40 +50,33 @@ int main(void)
 	end = time(NULL);
 	cost = end - start;
 	printf("mmap write 4096 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
-	
+
 	start = time(NULL);
 	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC);
-	ftruncate(fd, 5120);
+	ftruncate(fd, 8192);
 	for (i = 0; i < TEST_LOOPS; ++i) {
-		char *addr = mmap(NULL, 5120, PROT_WRITE, MAP_SHARED, fd, 0);
-		memcpy(addr, buf, 5120);
-		munmap(addr, 5120);
+		char *addr = mmap(NULL, 8192, PROT_WRITE, MAP_SHARED, fd, 0);
+		memcpy(addr, buf, 8192);
+		munmap(addr, 8192);
 	}
 	close(fd);
 	end = time(NULL);
 	cost = end - start;
-	printf("mmap write 5120 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
+	printf("mmap write 8192 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
 
-
-        start = time(NULL);
-	fd = open("./direct_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
-        for (i = 0; i < TEST_LOOPS; ++i) {
-		pwrite(fd, buf, 1024, 0);
-        }
+	start = time(NULL);
+	fd = open("./mmap_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC);
+	ftruncate(fd, 12288);
+	for (i = 0; i < TEST_LOOPS; ++i) {
+		char *addr = mmap(NULL, 12288, PROT_WRITE, MAP_SHARED, fd, 0);
+		memcpy(addr, buf, 12288);
+		munmap(addr, 12288);
+	}
 	close(fd);
-        end = time(NULL);
-        cost = end - start;
-        printf("direct write 1024 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
-
-        start = time(NULL);
-	fd = open("./direct_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
-        for (i = 0; i < TEST_LOOPS; ++i) {
-		pwrite(fd, buf, 2048, 0);
-        }
-	close(fd);
-        end = time(NULL);
-        cost = end - start;
-        printf("direct write 2048 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
+	end = time(NULL);
+	cost = end - start;
+	printf("mmap write 12288 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
+	
 
         start = time(NULL);
 	fd = open("./direct_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
@@ -124,13 +91,22 @@ int main(void)
         start = time(NULL);
 	fd = open("./direct_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
         for (i = 0; i < TEST_LOOPS; ++i) {
-		pwrite(fd, buf, 5120, 0);
+		pwrite(fd, buf, 8192, 0);
         }
 	close(fd);
         end = time(NULL);
         cost = end - start;
-        printf("direct write 5120 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
+        printf("direct write 8192 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
 
+        start = time(NULL);
+	fd = open("./direct_write.txt", O_CREAT|O_RDWR|O_TRUNC|O_DIRECT|O_SYNC, 0644);
+        for (i = 0; i < TEST_LOOPS; ++i) {
+		pwrite(fd, buf, 12288, 0);
+        }
+	close(fd);
+        end = time(NULL);
+        cost = end - start;
+        printf("direct write 12288 bytes %u times costs %d secs\n", TEST_LOOPS, cost);
 
 
 	return 0;
