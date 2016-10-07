@@ -31,3 +31,10 @@
 # Debug files
 *.dSYM/
 *.su
+
+# Tmp files
+*.txt
+*.d
+*.ko*
+*.cmd
+
