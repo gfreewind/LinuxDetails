@@ -42,6 +42,7 @@ static void lock_test(void)
 
 	spin_lock_init(&spinlock);
 
+	/* rwlock case */
 	getnstimeofday(&start);
 	for (i = 0; i < TEST_TIMES; ++i) {
 		read_lock(&rwlock);
@@ -58,6 +59,7 @@ static void lock_test(void)
 	printk(KERN_INFO "wrlock costs %ld s, %ld ns\n",
 		cost.tv_sec, cost.tv_nsec);
 
+	/* spinlock case */
 	getnstimeofday(&start);
 	for (i = 0; i < TEST_TIMES; ++i) {
 		spin_lock(&spinlock);
@@ -74,6 +76,7 @@ static void lock_test(void)
 	printk(KERN_INFO "spinlock costs %ld s, %lu ns\n",
 		cost.tv_sec, cost.tv_nsec);
 
+	/* rcu case */
 	getnstimeofday(&start);
 	for (i = 0; i < TEST_TIMES; ++i) {
 		rcu_read_lock();
@@ -90,6 +93,7 @@ static void lock_test(void)
 	printk(KERN_INFO "rculock costs %ld s, %lu ns\n",
 		cost.tv_sec, cost.tv_nsec);
 
+	/* mutex case */
 	getnstimeofday(&start);
 	for (i = 0; i < TEST_TIMES; ++i) {
 		mutex_lock(&mutex);
@@ -119,6 +123,8 @@ static int lock_test_init(void)
 	lock_test();
 
 	printk(KERN_INFO "Lock test exit\n");
+
+	/* Return -1 so that we needn't use rmmod to uninstall module */
 	return -1;
 }
 
