@@ -13,6 +13,10 @@ Is it same as that close fd after read all bytes?
 ## Answer
 No!
 
+# 2.tcp_push_packet
 
+## 问题
+
+如何让TCP协议栈不对数据做优化，一次send调用就对应一个数据包。
 
 
