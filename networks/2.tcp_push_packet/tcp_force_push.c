@@ -56,8 +56,12 @@ static void* client_thread(void *data)
 	serv_addr.sin_port = htons(6000);
 
 	connect(fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+	/* Enable TCP_NODELAY, it could force PUSH  */
 	opt = 1;
 	setsockopt(fd, SOL_TCP, TCP_NODELAY, &opt, sizeof(opt));
+	/* Disable TCP_CORK, it dosn't make sure force PUSH */
+	//opt = 0;
+	//setsockopt(fd, SOL_TCP, TCP_CORK, &opt, sizeof(opt));
 
 	for (i = 0; i < PACKET_CNT; ++i) {
 		send(fd, "1", 1, 0);
