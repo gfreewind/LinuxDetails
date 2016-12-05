@@ -29,6 +29,8 @@
 #include <pthread.h>
 #include <signal.h>
 
+
+#define ENABLE_NODELAY_TEST
 typedef int bool;
 
 #define true 1
@@ -56,15 +58,22 @@ static void* client_thread(void *data)
 	serv_addr.sin_port = htons(6000);
 
 	connect(fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+#ifdef ENABLE_NODELAY_TEST
 	/* Enable TCP_NODELAY, it could force PUSH  */
 	opt = 1;
 	setsockopt(fd, SOL_TCP, TCP_NODELAY, &opt, sizeof(opt));
+#else
 	/* Disable TCP_CORK, it dosn't make sure force PUSH */
-	//opt = 0;
-	//setsockopt(fd, SOL_TCP, TCP_CORK, &opt, sizeof(opt));
+	opt = 0;
+	setsockopt(fd, SOL_TCP, TCP_CORK, &opt, sizeof(opt));
+#endif
 
 	for (i = 0; i < PACKET_CNT; ++i) {
 		send(fd, "1", 1, 0);
+#ifndef ENABLE_NODELAY_TEST
+		opt = 0;
+		setsockopt(fd, SOL_TCP, TCP_CORK, &opt, sizeof(opt));
+#endif
 	}
 	close(fd);
 
