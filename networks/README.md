@@ -20,3 +20,14 @@ No!
 如何让TCP协议栈不对数据做优化，一次send调用就对应一个数据包。
 
 
+# 3.tcp_read_hit_rst
+
+## 问题
+
+
+当tcp套接字read调用，遇到对端发送RST报文时，返回值是什么？
+
+## Answer
+
+read返回-1，errno是ECONNRESET，即Connection reset by peer
+
