@@ -31,3 +31,23 @@ No!
 
 read返回-1，errno是ECONNRESET，即Connection reset by peer
 
+
+# 4.reuse_addr_option
+
+
+## 问题
+
+
+什么时候需要使用SO_REUSEADDR?
+
+
+## Answer
+
+
+当proto, addr, 和port三个元素都相同时，需要使用SO_REUSEADDR。
+其中INADDR_ANY表示所有地址，其与所有地址视为相同。
+
+
+
+
+
