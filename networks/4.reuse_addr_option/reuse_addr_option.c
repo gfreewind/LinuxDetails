@@ -6,8 +6,44 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <errno.h>
 
 #define LOCAL_PORT	(12345)
+
+static void test_udp_any_addr_same_port_diff_ifs(void)
+{
+        int udp_fd1 = socket(AF_INET, SOCK_DGRAM, 0);
+        int udp_fd2 = socket(AF_INET, SOCK_DGRAM, 0);
+
+        struct sockaddr_in addr_in;
+        memset(&addr_in, 0, sizeof(addr_in));
+        addr_in.sin_family = AF_INET;
+        addr_in.sin_port = htons(LOCAL_PORT);
+        addr_in.sin_addr.s_addr = INADDR_ANY;
+
+	char *opt = "eth0";
+	if (setsockopt(udp_fd1, SOL_SOCKET, SO_BINDTODEVICE, opt, strlen(opt))) {
+		printf("UDP1 fail to bind eth0. %s:%d\n", strerror(errno), errno);
+	}
+	opt = "eth1";
+	if (setsockopt(udp_fd2, SOL_SOCKET, SO_BINDTODEVICE, opt, strlen(opt))) {
+		printf("UDP2 fail to bind eth1. %s:%d\n", strerror(errno), errno);
+	}
+
+        if (bind(udp_fd1, (const struct sockaddr *)&addr_in, sizeof(addr_in)) != 0) {
+                printf("UDP1 fail to bind any addr and port(%d) on eth0\n", LOCAL_PORT);
+        }
+
+        if (bind(udp_fd2, (const struct sockaddr *)&addr_in, sizeof(addr_in)) != 0) {
+                printf("UDP2 fail to bind any addr and port(%d) on eth1 \n", LOCAL_PORT);
+        }
+
+        close(udp_fd1);
+        close(udp_fd2);
+
+        printf("UDP could bind two any addrs with same port and diff ifs without SO_REUSEADDR\n");
+}
+
 
 static void test_udp_diff_addr_same_port(struct in_addr *addr)
 {
@@ -209,6 +245,7 @@ int main(int argc, const char **argv)
 	test_udp_any_and_local_addr_same_port(&addr);
 	test_udp_any_addr_same_port();
 	test_udp_diff_addr_same_port(&addr);	
+	test_udp_any_addr_same_port_diff_ifs();
 	
 	return 0;
 }
