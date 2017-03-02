@@ -23,3 +23,14 @@ Then how about invokes mkfifo with O_NONBLOCK.
 mkfifo returns OK with O_RDONLY|O_NONBLOCK eventhough no O_WRONLY process, while
 it faied with O_WRONLY|O_NONBLOCK when no O_RDONLY process.
 
+
+# 2.unix_sock_recv_peer
+
+## 问题  
+对于UNIX域套接字来说，如果调用recvfrom，得到的对端地址是什么呢？  
+
+## Question  
+When UNIX socket invokes recvfrom, what peer info we could get?
+
+
+
