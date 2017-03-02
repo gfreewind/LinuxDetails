@@ -32,5 +32,6 @@ it faied with O_WRONLY|O_NONBLOCK when no O_RDONLY process.
 ## Question  
 When UNIX socket invokes recvfrom, what peer info we could get?
 
-
-
+## 答案   
+当Unix域套接字的客户端，也bind了一个文件，则服务端可以得到unix域的peer信息，就是客户端bind的地址，如sun_path就是bind的文件。
+当Unix域套接字的客户端，没有bind，服务端得不到unix域的peer信息。
