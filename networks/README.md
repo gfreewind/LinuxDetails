@@ -49,6 +49,12 @@ read返回-1，errno是ECONNRESET，即Connection reset by peer
 其中INADDR_ANY表示任意地址，其与所有地址视为相同。
 
 
+# 5.no_listen_tcp_conn  
+
+## 问题  
+没有listen调用，是否可以建立tcp连接
+
+
 
 
 
