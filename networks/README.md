@@ -55,6 +55,8 @@ read返回-1，errno是ECONNRESET，即Connection reset by peer
 没有listen调用，是否可以建立tcp连接
 
 
+# 6.tcp_keepalive_reporter
+当TCP的KeepAlive机制判定连接超时，应用层如何得到通知。  
 
 
 
