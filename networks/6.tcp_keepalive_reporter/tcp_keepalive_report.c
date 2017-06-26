@@ -47,6 +47,7 @@ int main(void)
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	int optval;
 	int err;
+	char buf[512];
 	socklen_t len = sizeof(err);
 
 	memset(&peer, 0, sizeof(peer));
@@ -71,13 +72,13 @@ int main(void)
 		exit(1);
 	}
 
-	optval = 1;
+	optval = 5;
 	ret = setsockopt(sock, IPPROTO_TCP, TCP_KEEPIDLE, &optval, sizeof(optval));
 	if (ret) {
 		printf("Fail to set TCP_KEEPIDLE: %s\n", strerror(errno));
 		exit(1);
 	}
-	optval = 3;
+	optval = 2;
 	ret = setsockopt(sock, IPPROTO_TCP, TCP_KEEPINTVL, &optval, sizeof(optval));
 	if (ret) {
 		printf("Fail to set TCP_KEEPINTVL: %s\n", strerror(errno));
@@ -143,7 +144,10 @@ int main(void)
 		printf("Fail to getsockopt\n");
 		exit(1);
 	}
-	printf("sock err is %d\n", err);	
+	printf("sock err is %d\n", err);
+
+	ret = read(sock, buf, 512);
+	printf("Read %d bytes\n", ret);
 
 	close(sock);
 	return 0;
