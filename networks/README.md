@@ -60,3 +60,6 @@ read返回-1，errno是ECONNRESET，即Connection reset by peer
 
 
 
+# 7.tcp_send_rst  
+应用层如何强制TCP发送RST中断连接。 
+
