@@ -34,8 +34,8 @@
 #include <sys/epoll.h>
 
 
-#define LOCAL_IP_ADDR		(0x7F000001)
-#define LOCAL_TCP_PORT		(34567)
+#define PEER_ADDR		(0x7F000001)
+#define PEER_PORT		(34567)
 
 //#define USE_SELECT
 #define USE_EPOLL
@@ -53,8 +53,8 @@ int main(void)
 	memset(&peer, 0, sizeof(peer));
 
 	peer.sin_family = AF_INET;
-	peer.sin_port = htons(LOCAL_TCP_PORT);
-	peer.sin_addr.s_addr = htonl(LOCAL_IP_ADDR);
+	peer.sin_port = htons(PEER_PORT);
+	peer.sin_addr.s_addr = htonl(PEER_ADDR);
 
 
 	ret = connect(sock, (const struct sockaddr *)&peer, sizeof(peer));
