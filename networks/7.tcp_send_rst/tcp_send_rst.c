@@ -36,7 +36,7 @@
 
 int main(void)
 {
-	struct sockaddr_in peer;
+	struct sockaddr_in local, peer;
 	struct linger linger;
 	int ret;
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -46,8 +46,20 @@ int main(void)
 	peer.sin_family = AF_INET;
 	peer.sin_port = htons(PEER_PORT);
 	peer.sin_addr.s_addr = htonl(PEER_ADDR);
+	local = peer;
 
+	int flag = 1;
+	ret = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
+	if (ret == -1) {
+		printf("Fail to setsocket SO_REUSEADDR: %s\n", strerror(errno));
+		exit(1);
+	}
 
+	ret = bind(sock, (const struct sockaddr *)&local, sizeof(local));
+	if (ret) {
+		printf("Fail to bind: %s\n", strerror(errno));
+		exit(1);
+	}
 	ret = connect(sock, (const struct sockaddr *)&peer, sizeof(peer));
 
 	if (ret) {
