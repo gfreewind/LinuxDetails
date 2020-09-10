@@ -14,7 +14,7 @@ DEPS := $(patsubst %.c,%.d,$(SRCS))
 OBJS := $(patsubst %.c,%.o,$(SRCS))
 
 
-TARGET := tcp_read_hit_rst
+TARGET := tcp_unread_rst
 
 all: $(TARGET)
 
