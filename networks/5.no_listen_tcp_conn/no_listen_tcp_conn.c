@@ -43,6 +43,13 @@ int main(void)
 
 	peer = local;	
 
+    int flag = 1;
+    ret = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag));
+    if (ret == -1) {
+        printf("Fail to setsocket SO_REUSEADDR: %s\n", strerror(errno));
+        exit(1);
+    }
+
 	ret = bind(sock, (const struct sockaddr *)&local, sizeof(local));
 	ret = connect(sock, (const struct sockaddr *)&peer, sizeof(peer));
 
