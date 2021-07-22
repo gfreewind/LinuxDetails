@@ -63,3 +63,12 @@ read返回-1，errno是ECONNRESET，即Connection reset by peer
 # 7.tcp_send_rst  
 应用层如何强制TCP发送RST中断连接。 
 
+
+# 8.connect_until_fail
+尝试一直连接，直到失败
+
+# 9.tcp_unread_shutdown
+关闭未读数据的tcp端口
+
+# 10.udp_listen_unexpected_port
+没有bind的udp socket，“监听”了非期望端口。
